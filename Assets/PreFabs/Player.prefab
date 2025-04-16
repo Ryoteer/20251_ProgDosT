@@ -1014,6 +1014,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2496841696018166282}
   - component: {fileID: 8378591550723467376}
+  - component: {fileID: 7736586713144361958}
   m_Layer: 0
   m_Name: Y Bot
   m_TagString: Untagged
@@ -1060,6 +1061,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7736586713144361958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3021142288957679792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 861e4662cd223ee4094c7cba47b700d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3038005237674298347
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,6 +2390,37 @@ Transform:
   - {fileID: 3829384815064955053}
   m_Father: {fileID: 7264265636851355748}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9101182763798696961
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3085676539136137645}
+  m_Layer: 3
+  m_Name: Ray Origin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3085676539136137645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9101182763798696961}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5134464349002428993}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9124891633822077303
 GameObject:
   m_ObjectHideFlags: 0
@@ -2410,6 +2454,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2496841696018166282}
+  - {fileID: 3085676539136137645}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &59565468208275832
@@ -2474,13 +2519,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0efc0c7e4d98a834f9aab0d9aadff875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHP: 0
   _airBoolName: isOnAir
+  _atkTriggerName: onAttack
+  _intTriggerName: onInteract
   _jumpTriggerName: onJump
+  _moveBoolName: isMoving
   _xAxisName: xAxis
   _zAxisName: zAxis
+  _atkDmg: 10
+  _atkKey: 323
+  _intKey: 102
   _jumpKey: 32
+  _atkDistance: 2
+  _atkMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _intDistance: 2
+  _intMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _groundRayDistance: 0.25
+  _groundRayMask:
+    serializedVersion: 2
+    m_Bits: 1073741824
   _jumpForce: 7.5
   _moveSpeed: 4
+  _rayOrigin: {fileID: 3085676539136137645}
 --- !u!1 &9172485187688929197
 GameObject:
   m_ObjectHideFlags: 0
