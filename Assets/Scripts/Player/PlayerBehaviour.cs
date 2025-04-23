@@ -25,8 +25,10 @@ public class PlayerBehaviour : EntityBehaviour
     [Header("Physics")]
     [SerializeField] private float _atkDistance = 2.0f;
     [SerializeField] private LayerMask _atkMask;
+    [SerializeField] private float _atkRadius = 1.0f;
     [SerializeField] private float _intDistance = 2.0f;
     [SerializeField] private LayerMask _intMask;
+    [SerializeField] private float _intRadius = 0.75f;
     [SerializeField] private float _groundRayDistance = 0.25f;
     [SerializeField] private LayerMask _groundRayMask;
     [SerializeField] private float _jumpForce = 5.0f;
@@ -35,13 +37,17 @@ public class PlayerBehaviour : EntityBehaviour
 
     private bool _isGrounded = false;
 
-    private Vector3 _dir = new(), _posOffset = new();
+    private Vector3 _dir = new(), _dirFix = new(), _camForwardFix = new(), 
+                    _camRightFix = new(), _posOffset = new();
 
     private Animator _animator;
     private Rigidbody _rb;
+    private SpringArm _arm;
+    private Transform _camTransform;
 
     private Ray _atkRay, _intRay, _groundRay;
-    private RaycastHit _atkHit, _intHit;
+    private RaycastHit _intHit;
+    private RaycastHit[] _atkHits;
 
     protected override void Awake()
     {
@@ -53,6 +59,9 @@ public class PlayerBehaviour : EntityBehaviour
     protected override void Start()
     {
         _animator = GetComponentInChildren<Animator>();
+
+        _camTransform = Camera.main.transform;
+        _arm = Camera.main.GetComponentInParent<SpringArm>();
     }
 
     protected override void Update()
@@ -98,9 +107,11 @@ public class PlayerBehaviour : EntityBehaviour
     {
         _atkRay = new Ray(_rayOrigin.position, transform.forward);
 
-        if(Physics.Raycast(_atkRay, out _atkHit, _atkDistance, _atkMask))
+        _atkHits = Physics.SphereCastAll(_atkRay, _atkRadius, _atkDistance, _atkMask);
+
+        foreach(RaycastHit hit in _atkHits)
         {
-            if(_atkHit.collider.TryGetComponent(out EntityBehaviour entity))
+            if(hit.collider.TryGetComponent(out EntityBehaviour entity))
             {
                 entity.TakeDamage(_atkDmg);
             }
@@ -109,13 +120,16 @@ public class PlayerBehaviour : EntityBehaviour
 
     public void Interact()
     {
-        Debug.Log($"Jaja botoncito.");
-
         _intRay = new Ray(_rayOrigin.position, transform.forward);
 
-        if (Physics.Raycast(_intRay, out _intHit, _intDistance, _intMask))
+        if (Physics.SphereCast(_intRay, _intRadius, out _intHit, _intDistance, _intMask))
         {
-            
+            Debug.Log($"Collided obj : {_intHit.collider.name}.");
+
+            if(_intHit.collider.TryGetComponent(out IInteractable interactable))
+            {
+                interactable.OnInteract();
+            }
         }
     }
 
@@ -137,7 +151,22 @@ public class PlayerBehaviour : EntityBehaviour
 
     private void Movement(Vector3 dir)
     {
-        _rb.MovePosition(transform.position + (transform.right * dir.x + transform.forward * dir.z).normalized * _moveSpeed * Time.fixedDeltaTime);
+        _camForwardFix = _camTransform.forward;
+        _camRightFix = _camTransform.right;
+
+        _camForwardFix.y = 0.0f;
+        _camRightFix.y = 0.0f;
+
+        Rotate(_camForwardFix);
+
+        _dirFix = (_camRightFix * dir.x + _camForwardFix * dir.z).normalized;
+
+        _rb.MovePosition(transform.position + _dirFix * _moveSpeed * Time.fixedDeltaTime);
+    }
+
+    private void Rotate(Vector3 dir)
+    {
+        transform.forward = dir;
     }
 
     private void OnDrawGizmos()

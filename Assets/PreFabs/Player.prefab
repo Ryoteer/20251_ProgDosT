@@ -2538,8 +2538,9 @@ MonoBehaviour:
   _intDistance: 2
   _intMask:
     serializedVersion: 2
-    m_Bits: 0
-  _groundRayDistance: 0.25
+    m_Bits: 536870912
+  _intRadius: 0.75
+  _groundRayDistance: 0.5
   _groundRayMask:
     serializedVersion: 2
     m_Bits: 1073741824
