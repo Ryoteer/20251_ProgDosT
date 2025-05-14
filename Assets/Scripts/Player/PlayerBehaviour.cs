@@ -21,6 +21,7 @@ public class PlayerBehaviour : EntityBehaviour
     [SerializeField] private KeyCode _atkKey = KeyCode.Mouse0;
     [SerializeField] private KeyCode _intKey = KeyCode.F;
     [SerializeField] private KeyCode _jumpKey = KeyCode.Space;
+    [SerializeField] private KeyCode _quitKey = KeyCode.Escape;
 
     [Header("Physics")]
     [SerializeField] private float _atkDistance = 2.0f;
@@ -90,6 +91,11 @@ public class PlayerBehaviour : EntityBehaviour
         else if (Input.GetKeyDown(_atkKey))
         {
             _animator.SetTrigger(_atkTriggerName);
+        }
+
+        if (Input.GetKeyDown(_quitKey))
+        {
+            SceneLoadManager.Instance.LoadScene("MainMenu");
         }
     }
 
