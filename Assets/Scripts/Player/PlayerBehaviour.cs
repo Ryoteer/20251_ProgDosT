@@ -22,6 +22,7 @@ public class PlayerBehaviour : EntityBehaviour
     [SerializeField] private KeyCode _intKey = KeyCode.F;
     [SerializeField] private KeyCode _jumpKey = KeyCode.Space;
     [SerializeField] private KeyCode _quitKey = KeyCode.Escape;
+    [SerializeField] private KeyCode _resetKey = KeyCode.R;
 
     [Header("Physics")]
     [SerializeField] private float _atkDistance = 2.0f;
@@ -52,6 +53,8 @@ public class PlayerBehaviour : EntityBehaviour
 
     protected override void Awake()
     {
+        GameManager.Instance.Player = this;
+
         base.Awake();
 
         _rb = GetComponent<Rigidbody>();
@@ -59,6 +62,8 @@ public class PlayerBehaviour : EntityBehaviour
 
     protected override void Start()
     {
+        GameManager.Instance.ActualCheckpoint = transform.position;
+
         _animator = GetComponentInChildren<Animator>();
 
         _camTransform = Camera.main.transform;
@@ -96,6 +101,10 @@ public class PlayerBehaviour : EntityBehaviour
         if (Input.GetKeyDown(_quitKey))
         {
             SceneLoadManager.Instance.LoadScene("MainMenu");
+        }
+        else if (Input.GetKeyDown(_resetKey))
+        {
+            ResetPlayer();
         }
     }
 
@@ -168,6 +177,11 @@ public class PlayerBehaviour : EntityBehaviour
         _dirFix = (_camRightFix * dir.x + _camForwardFix * dir.z).normalized;
 
         _rb.MovePosition(transform.position + _dirFix * _moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void ResetPlayer()
+    {
+        transform.position = GameManager.Instance.ActualCheckpoint;
     }
 
     private void Rotate(Vector3 dir)
