@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NodeAssigner : MonoBehaviour
 {
-    private void Start()
+    private void Awake()
     {
         Transform[] nodes = GetComponentsInChildren<Transform>();
 

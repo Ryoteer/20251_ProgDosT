@@ -683,7 +683,6 @@ GameObject:
   - component: {fileID: 5495728167430500053}
   - component: {fileID: 3515424424653842118}
   - component: {fileID: 7739788527448027158}
-  - component: {fileID: 7908927067092444011}
   m_Layer: 0
   m_Name: Face
   m_TagString: Untagged
@@ -756,28 +755,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7908927067092444011
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051313067983683925}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2157854127706860513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,6 +1825,7 @@ GameObject:
   - component: {fileID: 868293408861216473}
   - component: {fileID: 6060904891759070463}
   - component: {fileID: 849101239104241715}
+  - component: {fileID: 8759819928441700353}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -1944,6 +1922,30 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8759819928441700353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6273473516250105729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e091de1f2e40e344acc815036f4e8b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHP: 100
+  _attackDistance: 2
+  _chaseDistance: 6.25
+  _updateNodeDistance: 0.75
+  _attackTriggerName: onAttack
+  _velocityFloatName: velocity
+  _dmg: 10
+  _attackRayDistance: 2
+  _attackRayMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _rayOrigin: {fileID: 7688545606965799785}
 --- !u!1 &6342566983491368035
 GameObject:
   m_ObjectHideFlags: 0
