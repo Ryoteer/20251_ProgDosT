@@ -20,9 +20,11 @@ public class EnemyBehaviour : EntityBehaviour
     [Header("Physics")]
     [SerializeField] private float _attackRayDistance = 2.0f;
     [SerializeField] private LayerMask _attackRayMask;
+    [SerializeField] private float _attackSphereRadius = 0.75f;
     [SerializeField] private Transform _rayOrigin;
 
     private float _playerDistance = 0.0f, _nodeDistance = 0.0f;
+    private string _state = "";
 
     private Animator _animator;
     private NavMeshAgent _agent;
@@ -67,6 +69,8 @@ public class EnemyBehaviour : EntityBehaviour
         {
             if(_playerDistance <= _attackDistance * _attackDistance)
             {
+                _state = "Attack";
+
                 if (!_agent.isStopped)
                 {
                     _agent.isStopped = true;
@@ -76,6 +80,8 @@ public class EnemyBehaviour : EntityBehaviour
             }
             else
             {
+                _state = "Chase";
+
                 if (_agent.isStopped)
                 {
                     _agent.isStopped = false;
@@ -86,6 +92,8 @@ public class EnemyBehaviour : EntityBehaviour
         }
         else
         {
+            _state = "Patrol";
+
             if(_agent.destination != _actualNode.position)
             {
                 _agent.SetDestination(_actualNode.position);
@@ -99,13 +107,15 @@ public class EnemyBehaviour : EntityBehaviour
                 _agent.SetDestination(_actualNode.position);
             }
         }
+
+        //Debug.Log($"{name}: State: {_state}. Distance to player: {Mathf.Sqrt(_playerDistance)}.");
     }
 
     public void Attack()
     {
         _attackRay = new Ray(_rayOrigin.position, transform.forward);
 
-        if(Physics.Raycast(_attackRay, out _attackHit, _attackRayDistance, _attackRayMask))
+        if(Physics.SphereCast(_attackRay, _attackSphereRadius, out _attackHit, _attackRayDistance, _attackRayMask))
         {
             if(_attackHit.collider.TryGetComponent(out EntityBehaviour entity))
             {

@@ -1098,6 +1098,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2872197154199912103}
   - component: {fileID: 8159454678242092253}
+  - component: {fileID: 798528322362492524}
   m_Layer: 0
   m_Name: Y Bot
   m_TagString: Untagged
@@ -1144,6 +1145,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &798528322362492524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3213257536824763421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41876593e8e549444824b8e36e8647fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3330640196721733689
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,7 +1957,8 @@ MonoBehaviour:
   _attackRayDistance: 2
   _attackRayMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 8
+  _attackSphereRadius: 0.75
   _rayOrigin: {fileID: 7688545606965799785}
 --- !u!1 &6342566983491368035
 GameObject:

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -43,5 +44,13 @@ public class GameManager : MonoBehaviour
     {
         get { return _aiNodes; }
         set { _aiNodes = value; }
+    }
+
+    private NavMeshSurface _surface;
+
+    public NavMeshSurface Surface
+    {
+        get { return _surface; }
+        set { _surface = value; }
     }
 }

@@ -189,16 +189,16 @@ public class PlayerBehaviour : EntityBehaviour
         transform.forward = dir;
     }
 
-    private void OnDrawGizmos()
-    {
-        if (_isGrounded)
-        {
-            Gizmos.color = Color.green;
-        }
-        else
-        {
-            Gizmos.color= Color.red;
-        }
-        Gizmos.DrawLine(_groundRay.origin, _groundRay.direction * _groundRayDistance);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    if (_isGrounded)
+    //    {
+    //        Gizmos.color = Color.green;
+    //    }
+    //    else
+    //    {
+    //        Gizmos.color= Color.red;
+    //    }
+    //    Gizmos.DrawLine(_groundRay.origin, _groundRay.direction * _groundRayDistance);
+    //}
 }

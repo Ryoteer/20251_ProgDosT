@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class FadingPlatformBehaviour : MonoBehaviour
@@ -13,11 +14,13 @@ public class FadingPlatformBehaviour : MonoBehaviour
 
     private Collider _collider;
     private Material _material;
+    private NavMeshModifier _modifier;
 
     private void Start()
     {
         _collider = GetComponent<Collider>();
         _material = GetComponentInChildren<Renderer>().material;
+        _modifier = GetComponent<NavMeshModifier>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -45,6 +48,9 @@ public class FadingPlatformBehaviour : MonoBehaviour
 
         _material.color = new Color(_material.color.r, _material.color.g, _material.color.b, 0.0f);
         _collider.enabled = false;
+        _modifier.enabled = false;
+
+        GameManager.Instance.Surface.BuildNavMesh();
 
         yield return new WaitForSeconds(_interval);
 
@@ -61,6 +67,9 @@ public class FadingPlatformBehaviour : MonoBehaviour
 
         _material.color = new Color(_material.color.r, _material.color.g, _material.color.b, 1.0f);
         _collider.enabled = true;
+        _modifier.enabled = true;
+
+        GameManager.Instance.Surface.BuildNavMesh();
 
         _isActive = false;
     }
